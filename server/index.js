@@ -43,13 +43,12 @@ const StartServer = async () => {
         `,
         resolvers: {
             Todo: {
-                user: async (todo) => (await axios.get(`https://jsonplaceholder.typicode.com/users/${todo.id}`)).data
-
+                user: (todo) => USER.find((e) => e.id === todo.id)
             },
             Query: {
-                getTodos: async () => (await axios.get('https://jsonplaceholder.typicode.com/todos')).data,
-                getrUser: async () => (await axios.get('https://jsonplaceholder.typicode.com/users')).data,
-                getUserId: async (parnet, { id }) => (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
+                getTodos: () => TODO,
+                getrUser: () => USER,
+                getUserId: (parnet, { id }) => USER.find((e) => e.id === id)
             }
         }
 
